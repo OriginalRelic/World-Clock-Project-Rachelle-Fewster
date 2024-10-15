@@ -11,6 +11,7 @@ setInterval(function () {
 
 setInterval(function () {
   //darwin
+
   let darwinElement = document.querySelector("#darwin");
   let darwinDateElement = darwinElement.querySelector(".date");
   let darwinTimeElement = darwinElement.querySelector(".time");
@@ -24,6 +25,7 @@ setInterval(function () {
 
 setInterval(function () {
   //brisbane
+
   let brisbaneElement = document.querySelector("#brisbane");
   let brisbaneDateElement = brisbaneElement.querySelector(".date");
   let brisbaneTimeElement = brisbaneElement.querySelector(".time");
@@ -37,6 +39,7 @@ setInterval(function () {
 
 setInterval(function () {
   //auckland
+
   let aucklandElement = document.querySelector("#auckland");
   let aucklandDateElement = aucklandElement.querySelector(".date");
   let aucklandTimeElement = aucklandElement.querySelector(".time");
@@ -47,3 +50,23 @@ setInterval(function () {
     "h:mm:ss [<small>]A[</small>]"
   );
 }, 1000);
+
+function updateCity(event) {
+  let cityTimeZone = event.target.value;
+  let cityName = cityTimeZone.replace("_", " ").split("/")[1];
+  let cityTime = moment().tz(cityTimeZone);
+  let citiesElement = document.querySelector("#cities");
+  citiesElement.innerHTML = `
+<div class="city">
+<h2>${cityTimeZone}</h2>
+<div class="date">${cityTime.format("MMMM Do YYYY")}</div>
+<div class="time">${cityTime.format("h:mm:ss")}<small>${cityTime.format(
+    "A"
+  )}</small>
+  </div>
+</div>`;
+}
+
+let citiesSelectElement = document.querySelector("#select-city");
+
+citiesSelectElement.addEventListener("change", updateCity);
